@@ -95,13 +95,13 @@ android_status() {
     ADBF="$(fastboot devices | grep fastboot|awk '{print $2}')"
     ADBOFF="$(adb devices | sed -n 2p)"
     if [[ $ADBW = "normal" ]]; then
-        echo "normal" > $(pwd)/.wdroid-status
+        echo "normal" > $(pwd)/.wbruter-status
     elif [[ $ADBW = "unauthorized" ]]; then
-        echo " * Please allow this pc to authorize" > $(pwd)/.wdroid-status
+        echo " * Please allow this pc to authorize" > $(pwd)/.wbruter-status
     elif [[ $ADBW = "recovery" ]]; then
-        echo "recovery" > $(pwd)/.wdroid-status
+        echo "recovery" > $(pwd)/.wbruter-status
     elif [[ $ADBF = "fastboot" ]]; then
-        echo "fastboot" > $(pwd)/.wdroid-status
+        echo "fastboot" > $(pwd)/.wbruter-status
     else
         echo "* No device connected.."
         exit
@@ -195,8 +195,8 @@ multidevices() {
 ################################################################################
 android_usage() {
     if [[ -z $1 ]];then
-        STATUS=$(cat $(pwd)/.wdroid-status)
-        rm $(pwd)/.wdroid-status
+        STATUS=$(cat $(pwd)/.wbruter-status)
+        rm $(pwd)/.wbruter-status
         if [[ $STATUS = "normal" ]]; then
             printf "\nDevice is in $STATUS mode, what are you trying to do?
 
