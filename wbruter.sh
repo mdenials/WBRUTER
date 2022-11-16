@@ -13,10 +13,6 @@
 #       Website: https://www.nr1.nu/
 #        GitHub: https://github.com/wuseman/
 #
-# - Descrpiption --------------------------------------------------------------------
-#
-#      No description has been added
-#
 # - LiCENSE -------------------------------------------------------------------------
 #
 #      Copyright (C) 2022, wuseman                                     
@@ -41,7 +37,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# - End of Header -------------------------------------------------------------
+# - End of Header --------------------------------------------------------------------
 
 
 ################################################################################
@@ -768,19 +764,18 @@ elif [[ $1 = "-s" || $1 = "-ssh" || $1 = "--ssh" || $1 = "--s" ]]; then
 elif [[ $1 = "-v" || $1 = "-version" || $1 = "--version" || $1 = "--v" ]]; then
     printf "\nYou are using $basename$0 $VERSION wich was released $RELEASEDATE\n"
     printf "\nLatest version of WBRUTER will allways be available on: github.com/wuseman/WBRUTER\n\nDo you have any suggestions of rare protocols that should be added under wbruter, then send me an email\n\nThanks for using WBRUTER\n\n"
-elif [[ $1 = "-z" || $1 = "-zip" || $1 = "--ZIP" || $1 = "--z" ]]; then
+elif [[ $1 = "-z" || $1 = "-zip" || $1 = "--zip" || $1 = "--z" ]]; then
     zipattack
 elif [[ $1 = "-Z" || $1 = "-znc"  || $1 = "--Z" || $1 = "--ZNC" ]]; then
     zncattack
 else
 
-    if [[ $* = "-n" ]]; then
-        printf "
+cat << EOF
 
-        $basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
+$basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
 
-        --android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
-        --android-gui [4] [6]           - Brute force attack any android device via gui/login screen
+        --android [4] [6] [wordfile]   - BruteForce attack any android device with 100% guarantee to crack pin via locksettings
+        --android-gui [4] [6]          - BruteForce attack any android device via gui/login screen
         --ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
         --gmail                        - Dictionary attack for crack password for any gmail account
         --github                       - Dictionary attack for github accounts via web
@@ -789,28 +784,7 @@ else
         --ssh                          - Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
         --zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
         --znc                          - Dictionary attack for ZNC bouncer's web loginn
-        --version                      - Print version of $basename$0
 
-        "
-    else
+EOF
 
-        printf "
-
-        $basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
-
-        $BRIGHTBLUE--android [4] [6] [wordfile]   - Brute force attack any android device with 100% guarantee to crack pin via locksettings
-        $BRIGHTMAGENTA--android-gui [4] [6]        - Brute force attack any android device via gui/login screen
-        $BRIGHTGREEN--ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
-        $BRIGHTRED--gmail                        - Dictionary attack for crack password for any gmail account
-        $BRIGHTCYAN--github                       - Dictionary attack for github accounts via web
-        $BRIGHTBLUE--gpg                          - Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
-        $CYAN--no-colors                    - Do not include colors in help
-        $BRIGHTRED--rar                          - Dictionary attack for break the encryption of rar files
-        $BRIGHTCYAN--ssh                           -Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
-        $BRIGHTGRAY--zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
-        $YELLOW--znc                          - Dictionary attack for ZNC bouncer's web loginn
-        $BRUGHTWHITE--version                      - Print version of $basename$0
-
-        "
-    fi
 fi
