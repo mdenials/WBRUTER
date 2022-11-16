@@ -39,53 +39,12 @@
 #
 # - End of Header --------------------------------------------------------------------
 
-
-################################################################################
-####                                                                        ####
-#### Here we store colors in variables for easier usage in help section     ####
-####                                                                        ####
-################################################################################
-################################################################################
-RED="\e[0;31m"
-BRIGHTRED="\e[1;31m"
-BLUE="\e[0;34m"
-BRIGHTBLUE="\e[1;34m"
-MAGENTA="\e[0;35m"
-BRIGHTMAGENTA="\e[1;35m"
-GREEN="\e[0;32m"
-BRIGHTGREEN="\e[1;32m"
-YELLOW="\e[0;33m"
-BRIGHTYELLOW="\e[1;33m"
-CYAN="\e[0;36m"
-BRIGHTCYAN="\e[1;36m"
-WHITE="\e[0;37m"
-BRIGHTWHITE="\e[1;37m"
-GRAY="\e[0;233m"
-BRIGHTGRAY="\e[1;233m"
-END="\e[0m"
-
-################################################################################
-################################################################################
-####                                                                        ####
-#### This function will check so usb debugging has been enable..............####
-####                                                                        ####
-################################################################################
-################################################################################
 androiddebug() {
     case $(adb devices | awk '{print $2}' | sed 1d | sed '$d') in
         "unauthorized") echo "* You must enable usb-debugging in developer settings." ;;
     esac
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This wil check wich runmode mode device has been booted into...........####
-#### Since we must separate everything, for bruteforce we want be in normal ####
-#### boot mode, if device is not in normal mode we stop.....................####
-####                                                                        ####
-################################################################################
-################################################################################
 android_status() {
     ADBW=$(adb devices | sed -n '2p'|awk '{print $2}' | sed 's/device/normal/g')
     ADBF="$(fastboot devices | grep fastboot|awk '{print $2}')"
@@ -103,13 +62,6 @@ android_status() {
         exit
     fi
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### Antother control, check so device has been authorized with this PC.....####
-####                                                                        ####
-################################################################################
-################################################################################
 adb devices |sed -n 2p|grep una &> /dev/null
 if [[ $? -eq "0" ]]; then
     echo "* Your device has not been authorized with this pc, aborted."
@@ -118,13 +70,6 @@ fi
 
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### Third control, check so required tools is installed on the PC..........####
-####                                                                        ####
-################################################################################
-################################################################################
 adbexist() {
     adb="$(which adb 2> /dev/null)"
     distro="$(cat /etc/os-release | head -n 1 | cut -d'=' -f2 | sed 's/"//g')"
@@ -164,14 +109,6 @@ adbexist() {
     esac
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### Aaaahh, fourth control, if there is more then two devices connected....####
-#### then we will let the user choose wich one to attack....................####
-####                                                                        ####
-################################################################################
-################################################################################
 multidevices() {
     ADBTOT="$(adb devices | sed 1d|head -2|grep device|wc -l)"
 
@@ -182,42 +119,28 @@ multidevices() {
     fi
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### If the user will use --android or -a without a digit, then print usage.####
-####                                                                        ####
-################################################################################
-################################################################################
 android_usage() {
     if [[ -z $1 ]];then
         STATUS=$(cat $(pwd)/.wbruter-status)
         rm $(pwd)/.wbruter-status
         if [[ $STATUS = "normal" ]]; then
-            printf "\nDevice is in $STATUS mode, what are you trying to do?
+cat << EOF
 
-            Usage:
+usage: $0 [-a 4|6] [--android 4|6] [--android-gui 4|6]
 
-            ./wbruter --android 4         # Attack android device via locksettings protected by 4 digits
-            ./wbruter --android 6         # Attack android device via locksettings protected by 6 digits
-            ./wbruter --android-gui 4     # Attack android device pin code via gui-screen protected by 4 digits
-            ./wbruter --android-gui 6     # Attack android device pin code via gui-screen protected by 6 digits
+    ./wbruter.sh --android 4        | BruteForce android device 4 digits pinCode
+    ./wbruter.sh --android 6        | BruteForce android device 6 digits pinCode
+    ./wbruter.sh --android-gui 4    | BruteForce android device via lockscreen/gui 4 digits pinCode
+    ./wbruter.sh --android-gui 6    | BruteForce android device via lockscreen/gui 6 digits pinCode
 
-            "
-            exit 1
+EOF
+exit 1
         fi
     else
         printf "Your device must be in normal mode when attacking pin code\n"
     fi
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the bruteforcer for android with 4digits via locksettings......####
-####                                                                        ####
-################################################################################
-################################################################################
 android4() {
     cr=`echo $'\n.'`
     cr=${cr%.}
@@ -252,13 +175,6 @@ android4() {
     done
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the bruteforcer for 6 digits via locksettings..................####
-####                                                                        ####
-################################################################################
-################################################################################
 android6() {
     cr=`echo $'\n.'`
     cr=${cr%.}
@@ -294,13 +210,6 @@ android6() {
 }
 
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the bruteforcer for android with 4 digits via GUI Screen.......####
-####                                                                        ####
-################################################################################
-################################################################################
 androidgui4() {
     screen="$(adb shell dumpsys nfc | grep 'mScreenState=')"
     case $screen in
@@ -330,14 +239,6 @@ androidgui4() {
         done
     }
 
-
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the bruteforcer for android with 6 digits via GUI Screen.......####
-####                                                                        ####
-################################################################################
-################################################################################
 androidgui6() {
     screen="$(adb shell dumpsys nfc | grep 'mScreenState=')"
     case $screen in
@@ -367,16 +268,6 @@ androidgui6() {
         done
     }
 
-
-
-
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the bruteforcer for attack a ftp account.......................####
-####                                                                        ####
-################################################################################
-################################################################################
 ftpattack() {
     which ftp &> /dev/null
     if [[ $? -eq "1" ]]; then
@@ -414,14 +305,6 @@ ftpattack() {
     echo -e "=====================================================\n"
 }
 
-
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the bruteforcer for attack a gmail account.....................####
-####                                                                        ####
-################################################################################
-################################################################################
 gmailattack() {
     requirements_gmail() {
         if [[ -n $(curl -v &> /dev/null) ]]; then echo "Curl is required for this tool, aborted."; exit 1;fi }
@@ -464,14 +347,6 @@ gmailattack() {
                 gmail_attack
             }
 
-
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the GPG bruteforcer for crack gpg keys and passphrases.........####
-####                                                                        ####
-################################################################################
-################################################################################
 gpgattack() {
     which gpg &> /dev/null
     if [[ $? -eq "1" ]]; then
@@ -502,13 +377,6 @@ gpgattack() {
     fi
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the RAR bruteforcer for crack gpg keys and passphrases.........####
-####                                                                        ####
-################################################################################
-################################################################################
 rarattack() {
     if [[ -n $(unrar -v &> /dev/null) ]]; then
         echo "unrar is required for this tool, aborted."
@@ -543,16 +411,6 @@ rarattack() {
     done < wordlist
 }
 
-#################################################################################
-#### NEW METHOD TO BREAK SSH SINCE 2019-04-07 VIA PSSH INSTEAD OF SSH........####
-#################################################################################
-####                                                                         ####
-#### This is a unique method you wont find anywhere else while I typing......####
-#### this, atleast you wont find a public released ssh attack tool that......####
-#### using same tools as I do in this method, this is a powerful method......####
-####                                                                         ####
-#################################################################################
-#################################################################################
 sshattack() {
     sshpass -v &> /dev/null
     if [[ ! $? = "0" ]]; then echo "sshpass is required to be installed, aborted"; exit 0; fi
@@ -576,13 +434,6 @@ sshattack() {
     done < $wordlist
 }
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is the ZIP brute forcer for crack zip keys and passphrases........####
-####                                                                        ####
-################################################################################
-################################################################################
 zipattack() {
     read -p "ZiP File: " zippie
     read -p "Wordlist: " wordish
@@ -604,13 +455,6 @@ zipattack() {
 }
 
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### This is a unique ZNC Bouncer brute forcer for crack login passphrases..####
-####                                                                        ####
-################################################################################
-################################################################################
 zncattack() {
     read -p "ZNC User: " zuser
     if [[ -z $zuser ]]; then
@@ -692,15 +536,6 @@ github() {
 }
 
 
-################################################################################
-################################################################################
-####                                                                        ####
-#### From here here we read stdin from the user so we can call the .........####
-#### right function, if there is no variable used then we gonna print help..####
-####                                                                        ####
-################################################################################
-################################################################################
-
 if [[ $1 = "--android" && $2 = "4" ]] || [[ $1 = "-a" && $2 = "4" ]]; then
     androiddebug
     adbexist
@@ -774,16 +609,21 @@ cat << EOF
 
 $basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
 
-        --android [4] [6] [wordfile]   - BruteForce attack any android device with 100% guarantee to crack pin via locksettings
-        --android-gui [4] [6]          - BruteForce attack any android device via gui/login screen
-        --ftp                          - Dictionary attack for crack password for on a ftp server (ftps is supported)
-        --gmail                        - Dictionary attack for crack password for any gmail account
-        --github                       - Dictionary attack for github accounts via web
-        --gpg                          - Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
-        --rar                          - Dictionary attack for break the encryption of rar files
-        --ssh                          - Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
-        --zip                          - Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
-        --znc                          - Dictionary attack for ZNC bouncer's web loginn
+  BruteForce Attack: 
+
+    -a|--android     4|6    | BruteForce android device 4 o 6 digits pinCode
+    -A|--android-gui 4|6    | BruteForce android device via lockscreen/gui 4 digits pinCode
+
+  Dictionary Attack:
+
+    --ftp                   | Dictionary attack for crack password for on a ftp server (ftps is supported)
+    --gmail                 | Dictionary attack for crack password for any gmail account
+    --github                | Dictionary attack for github accounts via web
+    --gpg                   | Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
+    --rar                   | Dictionary attack for break the encryption of rar files
+    --ssh                   | Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
+    --zip                   | Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
+    --znc                   | Dictionary attack for ZNC bouncer's web loginn
 
 EOF
 
