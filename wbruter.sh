@@ -271,7 +271,7 @@ androidgui6() {
 ftpattack() {
     which ftp &> /dev/null
     if [[ $? -eq "1" ]]; then
-        printf "+ You must install \e[1;1mftp\e[0m package before you can attack by this method, aborted\n" 
+        echo "+ You must install \e[1;1mftp\e[0m package before you can attack by this method, aborted\n" 
         exit 0
     fi
 
@@ -607,23 +607,25 @@ else
 
 cat << EOF
 
-$basename$0 $VERSION - is a tool for using brute force & dictionary attacking methods to attack various stuff written in \e[1;1mpure\e[0m bash code
-
   BruteForce Attack: 
 
-    -a|--android     4|6    | BruteForce android device 4 o 6 digits pinCode
-    -A|--android-gui 4|6    | BruteForce android device via lockscreen/gui 4 digits pinCode
+    usage: $0 [-a 4|6] [--android 4|6] [--android-gui 4|6]
+    
+        -a|--android     4|6    | BruteForce android device 4 o 6 digits pinCode
+        -A|--android-gui 4|6    | BruteForce android device via lockscreen/gui 4 digits pinCode
 
   Dictionary Attack:
 
-    --ftp                   | Dictionary attack for crack password for on a ftp server (ftps is supported)
-    --gmail                 | Dictionary attack for crack password for any gmail account
-    --github                | Dictionary attack for github accounts via web
-    --gpg                   | Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
-    --rar                   | Dictionary attack for break the encryption of rar files
-    --ssh                   | Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
-    --zip                   | Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
-    --znc                   | Dictionary attack for ZNC bouncer's web loginn
+    usage: $0 [--ftp] [--gmail] [--github] [--gpg] [--rar] [--ssh] [--zip] [--znc]
+        
+        --ftp                   | Dictionary attack for crack password for on a ftp server (ftps is supported)
+        --gmail                 | Dictionary attack for crack password for any gmail account
+        --github                | Dictionary attack for github accounts via web
+        --gpg                   | Dictionary attack for break the encryption of GPG encrypted files protected by a passphrase
+        --rar                   | Dictionary attack for break the encryption of rar files
+        --ssh                   | Dictionary attack for crack ssh passphrase on any ssh server via parallel ssh (all versions supported)
+        --zip                   | Dictionary attack a zip encryptedfile, brute force mode is enable for ZIP files
+        --znc                   | Dictionary attack for ZNC bouncer's web loginn
 
 EOF
 
