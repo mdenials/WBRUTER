@@ -1,5 +1,27 @@
 # WBRUTER
 
+[Android Infosec](https://www.youtube.com/watch?v=x5Rt93jshC8) has tested wbruter and have crated a really good video that can be seen on youtube, pleased visit this url https://www.youtube.com/watch?v=x5Rt93jshC8 to see a real test. If you have problem getting started, please see the video they have done it really nice. They also seems have really interesting posts on t
+
+[![IMAGE ALT TEXT HERE](https://i.imgur.com/zL1WSNv.png)](https://www.youtube.com/watch?v=x5Rt93jshC8)
+
+Thanks alot!
+
+*** 
+
+WBRUTER is not just for Android devices, but if you want to find more tools like wbruter go visit the repository below:
+
+* https://github.com/urbanadventurer/Android-PIN-Bruteforce
+
+I do not use social media myself, but these have cool stuff.
+
+* https://twitter.com/LukasStefanko
+* https://www.facebook.com/AndroidInfoSec
+
+*** 
+
+
+## ChatGPT about WBRUTER
+
 ![Screenshot](https://nr1.nu/archive/videos/wbruter_chatgpt.gif)
 
 wbruter is is the first tool wich has been released as open source wich can guarantee **100%** that your pin code will be cracked aslong as usb debugging has been enable. wbruter also includes some other brute methods like dictionary attacks for gmail, ftp, rar, zip and some other file extensions. 
@@ -7,6 +29,11 @@ wbruter is is the first tool wich has been released as open source wich can guar
 wbruter will allways try to bring support for rare protocols, wbruter wont contain common stuff like other brute tools cover like facebook, snapchat, instagram and you name it (except a few exceptions, very few)
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
+
+## Cool sources
+
+* https://www.facebook.com/AndroidInfoSec
+
 
 ## INFO: 2020-07-11:
 
@@ -80,4 +107,5 @@ Visit my websites and profiles for the latest info and updated tools
 
 * https://www.nr1.nu/WBRUTER 
 
-## License
+
+
