@@ -1,6 +1,39 @@
-# WBRUTER
+# WBRUTER | Bruteforce
 
-[Android Infosec](https://www.youtube.com/watch?v=x5Rt93jshC8) has tested wbruter and have created a really good video that can be seen on youtube, pleased visit this url https://www.youtube.com/watch?v=x5Rt93jshC8 to see a real test. If you have problem getting started, please see the video they have done it really nice. They also seems have really interesting videos and other projects on youtube. 
+When I created wbruter I was using "locksettings" as command but since Android 10 you can speed up the bruteforce by change this command if you wanna edit this source, I wont add it to wbruter since it will not work on older devices. Well I could probably fix so we can select cmd for 10> versions but  i am not really sure this command will work on all devices that is really old like android 2,3,4,5 etc so I leave it as I was created it. 
+
+But you can change this easy by adding something similiar on But you can do something like below if you want to edit this yourself after you cloned wbruter in the for loop.
+
+```bash
+androidVersion="$(adb shell getprop ro.build.version.release)"
+
+if [[ ${androidVersion} -lt 10 ]]; then
+    adb shell locksettings ...
+else
+    adb shell cmd lock_settings ...
+fi
+```
+
+Another thing that must be added is line 214 wich is the "detect if screen is already on/off" 
+
+```bash
+screen="$(adb shell dumpsys nfc | grep 'mScreenState=')"
+```
+
+On recent android version it should instead be:
+
+```bash
+screen="$(adb shell dumpsys activity|grep -i mCurrentFocus|awk 'NR==1{print $3}'|cut -d'}' -f1)"
+```
+
+More tweaks can be found on my new documentation site for adb: [https://android.nr1.nu](https://android.nr1.nu)
+
+
+![lock_settings](https://user-images.githubusercontent.com/26827453/222868132-2a56810c-14fd-479d-ba21-68f9520c4731.gif)
+
+*** 
+
+[Android Infosec](https://www.youtube.com/watch?v=x5Rt93jshC8) has tested [wbruter](https://github.com/wuseman/wbruter) and have created a really good video that can be seen on youtube, pleased visit this [youtube](https://www.youtube.com/watch?v=x5Rt93jshC8) url to see a real test. If you have problem getting started, please see the video they have done it really nice. They also seems have really interesting videos and other projects on youtube. 
 
 [![IMAGE ALT TEXT HERE](https://i.imgur.com/zL1WSNv.png)](https://www.youtube.com/watch?v=x5Rt93jshC8)
 
@@ -8,21 +41,23 @@ Thanks alot!
 
 *** 
 
-WBRUTER is not just for Android devices, but if you want to find more tools like wbruter go visit the repository below:
+[wbruter](https://github.com/wuseman/wbruter) is not just for Android devices, but if you want to find more tools like [wbruter](https://github.com/wuseman/wbruter) go visit the repository below:
 
-* https://github.com/urbanadventurer/Android-PIN-Bruteforce
+* [Android-PIN-Bruteforce](https://github.com/urbanadventurer/Android-PIN-Bruteforce)
 
 I do not use social media myself, but these have cool stuff.
 
-* https://twitter.com/LukasStefanko
-* https://www.facebook.com/AndroidInfoSec
+* [AndroidInfoSec](https://www.facebook.com/AndroidInfoSec)
+* [LukasStefanko](https://twitter.com/LukasStefanko)
+
 
 *** 
 
-
-## ChatGPT about WBRUTER
+## ChatGPT
 
 ![Screenshot](https://nr1.nu/archive/videos/wbruter_chatgpt.gif)
+
+## WBRUTER
 
 wbruter is is the first tool wich has been released as open source wich can guarantee **100%** that your pin code will be cracked aslong as usb debugging has been enable. wbruter also includes some other brute methods like dictionary attacks for gmail, ftp, rar, zip and some other file extensions. 
 
@@ -30,22 +65,17 @@ wbruter will allways try to bring support for rare protocols, wbruter wont conta
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
 
-## Cool sources
-
-* https://www.facebook.com/AndroidInfoSec
-
-
-## INFO: 2020-07-11:
+## 2020-07-11 - Info
 
 Android and Google, now have set a rule for locksettings via cli as via gui earlier, if you try to many attempts within X seconds you will be blocked for X seconds so wbruter via cli wont work anymore on devices that has been upgraded to latest version Android 10, older version should work fine unless they are upgraded to latest android version. 
 
-## Enable USB-Debugging via the methods below:
+## Enable USB Debugging
 
-## Via GUI: 
+### Via GUI
 
 Go to settings -> about > press on build number 7 times and the developer settings will be enable, go back to settings and press on developer mode and then enable USB DEBUGGING. If you found an android deviceon the street or something and want to break the pin this wont be possible unless you already know the pin so the device must have usb debugging enable for this to work. You wanna try this for fun then you can just enable usb debugging after you unlocked phone)
 
-## Via cli/adb: 
+### Via Command line interface
 
 ```bash
 adb shell settings put global development_settings_enabled 1
@@ -53,13 +83,11 @@ adb shell setprop persist.service.adb.enable 1
 ```
 ![Screenshot](https://raw.githubusercontent.com/1939149/wbruter/master/files/wbruter.gif)
 
-#### Via CLI:
-
 From 0000 to 9999 takes ~83 minutes. In around ~1h you will with 100% _guarantee_ have the pin code
 
 ![Screenshot](https://nr1.nu/archive/wbruter/previews/wbruter-cli.gif)
 
-#### Notice:
+## Notice
 
 If you will see a message similiar to message under you don't have to care, just let it run and it will be gone after ~4-5 failed attempts: 
 
@@ -105,7 +133,7 @@ If you have problems, questions, ideas or suggestions please contact me by posti
 
 Visit my websites and profiles for the latest info and updated tools
 
-* https://www.nr1.nu/WBRUTER 
+* [www.nr1.nu](https://www.nr1.nu/)
 
 
 
