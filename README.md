@@ -1,6 +1,6 @@
 # WBRUTER
 
-[Android Infosec](https://www.youtube.com/watch?v=x5Rt93jshC8) has tested wbruter and have crated a really good video that can be seen on youtube, pleased visit this url https://www.youtube.com/watch?v=x5Rt93jshC8 to see a real test. If you have problem getting started, please see the video they have done it really nice. They also seems have really interesting posts on t
+[Android Infosec](https://www.youtube.com/watch?v=x5Rt93jshC8) has tested wbruter and have crated a really good video that can be seen on youtube, pleased visit this url https://www.youtube.com/watch?v=x5Rt93jshC8 to see a real test. If you have problem getting started, please see the video they have done it really nice. They also seems have really interesting videos and other projects on youtube. 
 
 [![IMAGE ALT TEXT HERE](https://i.imgur.com/zL1WSNv.png)](https://www.youtube.com/watch?v=x5Rt93jshC8)
 
