@@ -2,7 +2,7 @@
 
 When I created wbruter I was using "locksettings" as command but since Android 10 you can speed up the bruteforce by change this command if you wanna edit this source, I wont add it to wbruter since it will not work on older devices. Well I could probably fix so we can select cmd for 10> versions but  i am not really sure this command will work on all devices that is really old like android 2,3,4,5 etc so I leave it as I was created it. 
 
-But you can change this easy by adding something similiar on But you can do something like below if you want to edit this yourself after you cloned wbruter in the for loop.
+But you can do something like below if you want to edit this yourself after you cloned wbruter in the for loop.
 
 ```bash
 androidVersion="$(adb shell getprop ro.build.version.release)"
