@@ -1,6 +1,6 @@
 # WBRUTER
 
-#### README
+![Screenshot](https://nr1.nu/archive/videos/wbruter_chatgpt.gif)
 
 wbruter is is the first tool wich has been released as open source wich can guarantee **100%** that your pin code will be cracked aslong as usb debugging has been enable. wbruter also includes some other brute methods like dictionary attacks for gmail, ftp, rar, zip and some other file extensions. 
 
