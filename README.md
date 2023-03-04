@@ -8,25 +8,22 @@ wbruter will allways try to bring support for rare protocols, wbruter wont conta
 
 _Many times it's the easiest methods that are the most powerful methods, it's just a matter of using your imagination ;-)_
 
-
 ## INFO: 2020-07-11:
 
 Android and Google, now have set a rule for locksettings via cli as via gui earlier, if you try to many attempts within X seconds you will be blocked for X seconds so wbruter via cli wont work anymore on devices that has been upgraded to latest version Android 10, older version should work fine unless they are upgraded to latest android version. 
 
 ## Enable USB-Debugging via the methods below:
 
-#### Via GUI: 
+## Via GUI: 
 
 Go to settings -> about > press on build number 7 times and the developer settings will be enable, go back to settings and press on developer mode and then enable USB DEBUGGING. If you found an android deviceon the street or something and want to break the pin this wont be possible unless you already know the pin so the device must have usb debugging enable for this to work. You wanna try this for fun then you can just enable usb debugging after you unlocked phone)
 
-#### Via cli/adb: 
+## Via cli/adb: 
 
-     settings put global development_settings_enabled 1
-     setprop persist.service.adb.enable 1
-
-#### Via GUI (old layout now use --androidgui 4 instead)
-##### Please use cli method instead since many devices has been set to erase the device after "10/15 wrong pin attempts" and this wont happen with the CLI method. (Updated: Jan/2019)
-
+```bash
+adb shell settings put global development_settings_enabled 1
+adb shell setprop persist.service.adb.enable 1
+```
 ![Screenshot](https://raw.githubusercontent.com/1939149/wbruter/master/files/wbruter.gif)
 
 #### Via CLI:
@@ -39,44 +36,48 @@ From 0000 to 9999 takes ~83 minutes. In around ~1h you will with 100% _guarantee
 
 If you will see a message similiar to message under you don't have to care, just let it run and it will be gone after ~4-5 failed attempts: 
 
-      Error while executing command: clear
-        java.lang.RuntimeException: No data directory found for package android
-        at android.app.ContextImpl.getDataDir(ContextImpl.java:2418)
-        at android.app.ContextImpl.getPreferencesDir(ContextImpl.java:533)
-        at android.app.ContextImpl.getSharedPreferencesPath(ContextImpl.java:795)
-        at android.app.ContextImpl.getSharedPreferences(ContextImpl.java:394)
-        at com.android.internal.widget.LockPatternUtils.monitorCheckPassword(LockPatternUtils.java:1814)
-        at com.android.internal.widget.LockPatternUtils.checkCredential(LockPatternUtils.java:398)
-        at com.android.internal.widget.LockPatternUtils.checkPassword(LockPatternUtils.java:548)
-        at com.android.internal.widget.LockPatternUtils.checkPassword(LockPatternUtils.java:509)
-        at com.android.server.LockSettingsShellCommand.checkCredential(LockSettingsShellCommand.java:151)
-        at com.android.server.LockSettingsShellCommand.onCommand(LockSettingsShellCommand.java:57)
-        at android.os.ShellCommand.exec(ShellCommand.java:96)
-        at com.android.server.LockSettingsService.onShellCommand(LockSettingsService.java:1945)
-        at android.os.Binder.shellCommand(Binder.java:574)
-        at android.os.Binder.onTransact(Binder.java:474)
-        at com.android.internal.widget.ILockSettings$Stub.onTransact(ILockSettings.java:419)
-        at com.android.server.HwLockSettingsService.onTransact(HwLockSettingsService.java:179)
-        at android.os.Binder.execTransact(Binder.java:675)
+```
+Error while executing command: clear
+  java.lang.RuntimeException: No data directory found for package android
+  at android.app.ContextImpl.getDataDir(ContextImpl.java:2418)
+  at android.app.ContextImpl.getPreferencesDir(ContextImpl.java:533)
+  at android.app.ContextImpl.getSharedPreferencesPath(ContextImpl.java:795)
+  at android.app.ContextImpl.getSharedPreferences(ContextImpl.java:394)
+  at com.android.internal.widget.LockPatternUtils.monitorCheckPassword(LockPatternUtils.java:1814)
+  at com.android.internal.widget.LockPatternUtils.checkCredential(LockPatternUtils.java:398)
+  at com.android.internal.widget.LockPatternUtils.checkPassword(LockPatternUtils.java:548)
+  at com.android.internal.widget.LockPatternUtils.checkPassword(LockPatternUtils.java:509)
+  at com.android.server.LockSettingsShellCommand.checkCredential(LockSettingsShellCommand.java:151)
+  at com.android.server.LockSettingsShellCommand.onCommand(LockSettingsShellCommand.java:57)
+  at android.os.ShellCommand.exec(ShellCommand.java:96)
+  at com.android.server.LockSettingsService.onShellCommand(LockSettingsService.java:1945)
+  at android.os.Binder.shellCommand(Binder.java:574)
+  at android.os.Binder.onTransact(Binder.java:474)
+  at com.android.internal.widget.ILockSettings$Stub.onTransact(ILockSettings.java:419)
+  at com.android.server.HwLockSettingsService.onTransact(HwLockSettingsService.java:179)
+  at android.os.Binder.execTransact(Binder.java:675)
+```
 
+## Getting started
 
-#### HOW TO
+```bash
+git clone https://github.com/wuseman/WBRUTER ~/wbrutrer
+cd ~/wbruter; 
+chmod +x wbruter.sh
+./wbruter --help
+```
+## License
 
-    git clone https://github.com/wuseman/WBRUTER
-    cd WBRUTER; ./wbruter --help
+For more information see the [LICENSE](license.md) file.
 
-#### REQUIREMENTS
+## Get in touch
 
-A linux setup would be good ;)
+If you have problems, questions, ideas or suggestions please contact me by posting to [wuseman@nr1.nu](mailto:wuseman@nr1.nu)
 
-#### CONTACT 
-
-If you have problems, questions, ideas or suggestions please contact me by posting to wuseman@nr1.nu
-
-#### WEB SITE
+## Website
 
 Visit my websites and profiles for the latest info and updated tools
 
-https://github.com/wuseman/ && https://nr1.nu && https://stackoverflow.com/users/9887151/wuseman
+* https://www.nr1.nu/WBRUTER 
 
-#### END!
+## License
