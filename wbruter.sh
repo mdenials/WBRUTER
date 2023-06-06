@@ -4,10 +4,10 @@
 #
 #        Author: wuseman <wuseman@nr1.nu>
 #      FileName: wbruter.sh
-#       Version: v3.0
+#       Version: v4.0
 #
 #       Created: 2018-16 (23:53:08)
-#      Modified: 
+#      Modified: 2023-06-06
 #
 #           iRC: wuseman (Libera/EFnet/LinkNet) 
 #       Website: https://www.nr1.nu/
@@ -76,43 +76,32 @@ android_status() {
 
 
 adbexist() {
-    adb="$(which adb 2> /dev/null)"
-    distro="$(cat /etc/os-release | head -n 1 | cut -d'=' -f2 | sed 's/"//g')"
+    adb="$(command -v adb 2> /dev/null)"
+    distro="$(awk -F '=' '$1=="ID" {gsub(/"/, "", $2); print $2}' /etc/os-release)"
 
     if [ -z "$adb" ]; then
         printf "+ You must install \e[1;1madb\e[0m package before you can attack by this method.\n" 
-        read -p "Install adb (Y/n) " adbinstall
+        read -r -p "Install adb (Y/n) " adbinstall
     fi
 
     case $adbinstall in
-        "Y")
+        "Y"|"y")
             echo -e "\nPlease wait..\n"
             sleep 1
             case $distro in
-                "Gentoo")
-                    echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
+                "gentoo"|"sabayon")
+                    echo -e "It seems you are running \e[1;32m$distro\e[0m which is supported, installing adb....\n"
                     emerge --ask android-tools ;;
-                "Sabayon")
-                    echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
-                    emerge --ask android-tools ;;
-                "Ubuntu")
-                    echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
-                    apt update -y; apt upgrade -y; apt-get install adb ;;
-                "Debian")
-                    echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
-                    apt update -y; apt upgrade -y; apt-get install adb ;;
-                "Raspbian")
-                    echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
-                    apt update -y; apt upgrade -y; apt-get install adb ;;
-                "Mint")
-                    echo -e "It seems you running \e[1;32m$distro\e[0m wich is supported, installing adb....\n"
-                    apt update -y; apt upgrade -y; apt-get install adb ;;
-                "no") echo "Aborted." ;
-                    exit 0 ;;
+                "ubuntu"|"debian"|"raspbian"|"mint")
+                    echo -e "It seems you are running \e[1;32m$distro\e[0m which is supported, installing adb....\n"
+                    apt update -y && apt upgrade -y && apt-get install adb ;;
+                *) echo -e "This tool is not supported for $distro, please go compile it from source instead...\n" ;;
             esac
-            echo -e "This tool is not supported for $distro, please go compile it from source instead...\n"
+            ;;
+        *) echo "Aborted." ;;
     esac
 }
+
 
 multidevices() {
     ADBTOT="$(adb devices | sed 1d|head -2|grep device|wc -l)"
