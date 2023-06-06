@@ -40,35 +40,40 @@
 # - End of Header --------------------------------------------------------------------
 
 androiddebug() {
-    case $(adb devices | awk '{print $2}' | sed 1d | sed '$d') in
-        "unauthorized") echo "* You must enable usb-debugging in developer settings." ;;
+    case "$(adb devices | awk 'NR>1 {print $2}' | head -n -1)" in
+        "unauthorized") echo "* You must enable USB debugging in developer settings." ;;
     esac
 }
 
+
 android_status() {
-    ADBW=$(adb devices | sed -n '2p'|awk '{print $2}' | sed 's/device/normal/g')
-    ADBF="$(fastboot devices | grep fastboot|awk '{print $2}')"
-    ADBOFF="$(adb devices | sed -n 2p)"
-    if [[ $ADBW = "normal" ]]; then
-        echo "normal" > $(pwd)/.wbruter-status
-    elif [[ $ADBW = "unauthorized" ]]; then
-        echo " * Please allow this pc to authorize" > $(pwd)/.wbruter-status
-    elif [[ $ADBW = "recovery" ]]; then
-        echo "recovery" > $(pwd)/.wbruter-status
-    elif [[ $ADBF = "fastboot" ]]; then
-        echo "fastboot" > $(pwd)/.wbruter-status
-    else
-        echo "* No device connected.."
-        exit
+    ADBW=$(adb devices | sed -n '2p' | awk '{print $2}' | sed 's/device/normal/g')
+    ADBF=$(fastboot devices | grep fastboot | awk '{print $2}')
+
+    case $ADBW in
+        "normal")
+            echo "normal" > "$(pwd)/.wbruter-status"
+            ;;
+        "unauthorized")
+            echo "* Please allow this PC to authorize" > "$(pwd)/.wbruter-status"
+            ;;
+        "recovery")
+            echo "recovery" > "$(pwd)/.wbruter-status"
+            ;;
+        *)
+            if [ -z "$ADBF" ]; then
+                echo "* No device connected.."
+                exit 1
+            fi
+            ;;
+    esac
+
+    if adb devices | sed -n '2p' | grep una &> /dev/null; then
+        echo "* Your device has not been authorized with this PC, aborted."
+        exit 1
     fi
-
-adb devices |sed -n 2p|grep una &> /dev/null
-if [[ $? -eq "0" ]]; then
-    echo "* Your device has not been authorized with this pc, aborted."
-    exit
-fi
-
 }
+
 
 adbexist() {
     adb="$(which adb 2> /dev/null)"
