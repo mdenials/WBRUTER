@@ -4,7 +4,7 @@
 #
 #        Author: wuseman <wuseman@nr1.nu>
 #      FileName: wbruter.sh
-#       Version: v4.0
+#       Version: v3.0
 #
 #       Created: 2018-16 (23:53:08)
 #      Modified: 2023-06-06
