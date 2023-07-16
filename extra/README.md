@@ -66,8 +66,8 @@ This script is licensed under the MIT License. See the [LICENSE](LICENSE) file f
 
 For related projects, you can also check out the following repository:
 
-- [https://github.com/wuseman/adb-shell/bruteforce](https://github.com/wuseman/adb-shell/bruteforce)
-- GitHub Repository: [https://github.com/wuseman/WBRUTER/extra/](https://github.com/wuseman/WBRUTER/extra/)
+- [https://github.com/wuseman/adb-shell/bruteforce]( https://github.com/wuseman/adb-shell/tree/master/extra)
+- GitHub Repository: [https://github.com/wuseman/WBRUTER/extra/](https://github.com/wuseman/WBRUTER/tree/master/extra)
 
 ---
 
