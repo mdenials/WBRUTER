@@ -1,1 +1,0 @@
-wbruter.sh
