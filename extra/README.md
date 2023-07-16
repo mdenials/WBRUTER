@@ -75,6 +75,6 @@ Feel free to modify the script and adapt it to your specific use case. For more 
 
 If you encounter any issues or have questions, please reach out to the owner or creator mentioned above or open an issue on the respective GitHub repository.
 
-Enjoy brute forcing PATTERNS codes responsibly!
+Enjoy brute forcing PIN codes responsibly!
 
 
