@@ -12,7 +12,7 @@
 #      iRC: wuseman (Libera/EFnet/LinkNet)
 #   GitHub: https://github.com/wuseman/
 #
-# ----------------------------------------------
+# ---------------------------------------------
 
 LOG_FILE="brute_force.log"
 
