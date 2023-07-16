@@ -1,4 +1,4 @@
-# androidBruter.sh
+# android-bruter-2023.sh
 
 A script for brute-forcing Android device PIN codes using the ADB (Android Debug Bridge) tool.
 
