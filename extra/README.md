@@ -9,7 +9,7 @@ This script allows you to perform a brute force attack on Android device PIN cod
 ## Usage
 
 ```shell
-./androidBruter.sh -l <pin_length> -n <num_processes> -s <start_pin> -e <end_pin> [-f <password_file>]
+./android-bruter-2023.sh -l <pin_length> -n <num_processes> -s <start_pin> -e <end_pin> [-f <password_file>]
 ```
 
 ### Options
@@ -37,12 +37,12 @@ The script operates on a 3x3 grid representing the PIN code possibilities:
 
 1. Brute force attack on a 4-digit PIN code range (0000 to 9999) using 4 parallel processes:
    ```shell
-   ./androidBruter.sh -l 4 -n 4
+   ./android-bruter-2023.sh -l 4 -n 4
    ```
 
 2. Brute force attack on a specific range (1000 to 2000) using a password file:
    ```shell
-   ./androidBruter.sh -l 4 -s 1000 -e 2000 -f passwords.txt
+   ./android-bruter-2023.sh -l 4 -s 1000 -e 2000 -f passwords.txt
    ```
 
 ## Requirements
