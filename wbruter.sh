@@ -701,7 +701,7 @@ cat << EOF
         --znc                   | Dictionary attack for ZNC bouncer's web loginn
 
 EOF
-
+fi
 fi
 fi
 fi
