@@ -597,7 +597,18 @@ github() {
     printf "%50s\n" | tr ' ' '='
 }
 
-
+if [[ $1 = "-- custom" ]] || [[ $1 = "-c" ]]; then
+    androiddebug
+    adbexist
+    android_status
+    multidevices
+    customandroid
+if [[ $1 = "--custom-gui" ]] || [[ $1 = "-C" ]]; then
+    androiddebug
+    adbexist
+    android_status
+    multidevices
+    customandroidgui
 if [[ $1 = "--android" && $2 = "4" ]] || [[ $1 = "-a" && $2 = "4" ]]; then
     androiddebug
     adbexist
@@ -610,12 +621,6 @@ elif [[ $1 = "--android" && $2 = "6" ]] || [[ $1 = "-a" && $2 = "6" ]]; then
     android_status
     multidevices
     android6
-if [[ $1 = "--custom"]] || [[ $1 = "-c"]]; then
-    androiddebug
-    adbexist
-    android_status
-    multidevices
-    customandroid
 elif [[ $1 = "--android-gui" && $2 = "4" ]] || [[ $1 = "-A" && $2 = "4" ]]; then
     androiddebug
     adbexist
@@ -628,12 +633,6 @@ elif [[ $1 = "--android-gui" && $2 = "6" ]] || [[ $1 = "-A" && $2 = "6" ]]; then
     android_status
     multidevices
     androidgui6
-    if [[ $1 = "--custom-gui"]] || [[ $1 = "-C"]]; then
-    androiddebug
-    adbexist
-    android_status
-    multidevices
-    customandroidgui
 elif [[ $1 = "--android" && ! $2 = "4" ]] || [[ $1 = "-a" && ! $2 = "4" ]]; then
     androiddebug
     adbexist
@@ -703,4 +702,6 @@ cat << EOF
 
 EOF
 
+fi
+fi
 fi
